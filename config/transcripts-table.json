@@ -2,7 +2,7 @@
   "tableName": "transcript",
   "tableType": "REALTIME",
   "segmentsConfig": {
-    "timeColumnName": "timestamp",
+    "timeColumnName": "ts",
     "timeType": "MILLISECONDS",
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
@@ -10,6 +10,22 @@
     "replication": "1"
   },
   "tenants": {},
+  "ingestionConfig": {
+    "transformConfigs": [
+      {
+        "columnName": "ts",
+        "transformFunction": "\"timestamp\""
+      },
+      {
+        "columnName": "tsDay",
+        "transformFunction": "toEpochDays(\"timestamp\")"
+      },
+      {
+        "columnName": "tsSecond",
+        "transformFunction": "toEpochSeconds(\"timestamp\")"
+      }
+    ]
+  },
   "tableIndexConfig": {
     "loadMode": "MMAP",
     "streamConfigs": {
@@ -24,7 +40,20 @@
       "realtime.segment.flush.threshold.time": "3600000",
       "realtime.segment.flush.threshold.rows": "50000",
       "stream.kafka.consumer.prop.auto.offset.reset": "smallest"
-    }
+    },
+    "starTreeIndexConfigs": [
+      {
+        "dimensionsSplitOrder": [
+          "gender",
+          "tsSecond"
+        ],
+        "skipStarNodeCreationForDimensions": [],
+        "functionColumnPairs": [
+          "SUM__score"
+        ],
+        "maxLeafRecords": 10000
+      }
+    ]
   },
   "metadata": {
     "customConfigs": {}

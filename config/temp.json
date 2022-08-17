@@ -1,0 +1,35 @@
+"fieldConfigList": [
+  {
+    "name": "ts",
+    "encodingType": "DICTIONARY",
+    "indexTypes": [
+      "TIMESTAMP"
+    ],
+    "timestampConfig": {
+      "granularities": [
+        "DAY",
+        "WEEK",
+        "MONTH"
+      ]
+    }
+  }
+],
+
+{
+  "columnName": "ts",
+  "transformFunction": "\"timestamp\""
+}      
+
+
+{
+  "name": "timestamp",
+  "dataType": "LONG",
+  "format": "1:MILLISECONDS:EPOCH",
+  "granularity": "1:MILLISECONDS"
+},
+{
+  "name": "ts",
+  "dataType": "TIMESTAMP",
+  "format": "1:MILLISECONDS:TIMESTAMP",
+  "granularity": "1:MILLISECONDS"
+},

@@ -28,10 +28,24 @@
       "dataType": "FLOAT"
     }
   ],
-  "dateTimeFieldSpecs": [{
-    "name": "timestamp",
-    "dataType": "LONG",
-    "format" : "1:MILLISECONDS:EPOCH",
-    "granularity": "1:MILLISECONDS"
-  }]
+  "dateTimeFieldSpecs": [
+    {
+      "name": "ts",
+      "dataType": "TIMESTAMP",
+      "format": "1:MILLISECONDS:TIMESTAMP",
+      "granularity": "1:MILLISECONDS"
+    },
+    {
+      "name": "tsDay",
+      "dataType": "LONG",
+      "format": "1:DAYS:EPOCH",
+      "granularity": "1:MILLISECONDS"
+    },
+    {
+      "name": "tsSecond",
+      "dataType": "LONG",
+      "format": "1:SECONDS:EPOCH",
+      "granularity": "1:MILLISECONDS"
+    }
+  ]
 }

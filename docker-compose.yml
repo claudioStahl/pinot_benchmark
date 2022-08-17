@@ -35,7 +35,7 @@ services:
       KAFKA_BROKERS: kafka:29092
 
   pinot-controller:
-    image: apachepinot/pinot:0.9.3
+    image: apachepinot/pinot:0.10.0
     command: "StartController -zkAddress zookeeper:2181"
     container_name: "pinot-controller"
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
       - zookeeper
 
   pinot-broker:
-    image: apachepinot/pinot:0.9.3
+    image: apachepinot/pinot:0.10.0
     command: "StartBroker -zkAddress zookeeper:2181"
     restart: unless-stopped
     container_name: "pinot-broker"
@@ -59,7 +59,7 @@ services:
       - pinot-controller
 
   pinot-server:
-    image: apachepinot/pinot:0.9.3
+    image: apachepinot/pinot:0.10.0
     command: "StartServer -zkAddress zookeeper:2181"
     restart: unless-stopped
     container_name: "pinot-server" 
