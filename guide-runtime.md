@@ -35,9 +35,9 @@ select sum(score) from transcript where tsDay = toEpochDays(fromDateTime('2022-0
 
 select count(*) from transcript where tsDay = toEpochDays(fromDateTime('2022-08-17', 'yyyy-MM-dd')) and gender = 'Female';
 
-select count(*) from transcript where tsSecond >= toEpochSeconds(fromDateTime('2022-08-17 03:50:40', 'yyyy-MM-dd HH:mm:ss')) and tsSecond <= toEpochSeconds(fromDateTime('2022-08-17 03:50:50', 'yyyy-MM-dd HH:mm:ss')) and gender = 'Female';
+select count(*) from transcript where tsSecond >= toEpochSeconds(fromDateTime('2022-08-17 20:50:40', 'yyyy-MM-dd HH:mm:ss')) and tsSecond <= toEpochSeconds(fromDateTime('2022-08-17 20:50:50', 'yyyy-MM-dd HH:mm:ss')) and studentID = 5983;
 
-select sum(score) from transcript where tsSecond >= toEpochSeconds(fromDateTime('2022-08-17 03:50:40', 'yyyy-MM-dd HH:mm:ss')) and tsSecond <= toEpochSeconds(fromDateTime('2022-08-17 03:50:50', 'yyyy-MM-dd HH:mm:ss')) and gender = 'Female';
+select sum(score) from transcript where tsSecond >= toEpochSeconds(fromDateTime('2022-08-17 20:50:40', 'yyyy-MM-dd HH:mm:ss')) and tsSecond <= toEpochSeconds(fromDateTime('2022-08-17 20:50:50', 'yyyy-MM-dd HH:mm:ss')) and studentID = 5983;
 
 select count(*) from transcript;
 ```

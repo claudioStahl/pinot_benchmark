@@ -44,11 +44,12 @@
     "starTreeIndexConfigs": [
       {
         "dimensionsSplitOrder": [
-          "gender",
+          "studentID",
           "tsSecond"
         ],
         "skipStarNodeCreationForDimensions": [],
         "functionColumnPairs": [
+          "COUNT__*",
           "SUM__score"
         ],
         "maxLeafRecords": 10000
