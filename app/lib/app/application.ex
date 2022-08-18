@@ -1,6 +1,7 @@
 defmodule App.Application do
   use Application
 
+  alias App.ConsultServer
   alias App.ProducerServer
 
   @parallel 20
@@ -24,10 +25,14 @@ defmodule App.Application do
 
   defp prod_children do
     if Mix.env() == :prod do
-      producer_children()
+      consult_children() ++ producer_children()
     else
       []
     end
+  end
+
+  defp consult_children do
+    Enum.map(1..@parallel, &{ConsultServer, number: &1})
   end
 
   defp producer_children do

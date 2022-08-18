@@ -22,3 +22,7 @@ scrape_configs:
   - job_name: pinot-server
     static_configs:
       - targets: ['pinot-server:9012']            
+
+  - job_name: app
+    static_configs:
+      - targets: ['host.docker.internal:4001']
