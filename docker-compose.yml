@@ -1,4 +1,11 @@
 version: '3.7'
+
+volumes:
+  prometheus_data:
+    driver: local 
+  grafana_data:
+    driver: local       
+
 services:
   zookeeper:
     image: zookeeper:3.5.6
@@ -34,6 +41,25 @@ services:
     environment:
       KAFKA_BROKERS: kafka:29092
 
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus/:/etc/prometheus/
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      VERSION_CONFIG: 1
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+
   pinot-controller:
     image: apachepinot/pinot:0.10.0
     command: "StartController -zkAddress zookeeper:2181"
@@ -41,8 +67,9 @@ services:
     restart: unless-stopped
     ports:
       - "9000:9000"
+      - "9010:9010"
     environment:
-      JAVA_OPTS: "-Dplugins.dir=/opt/pinot/plugins -Xms1G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-controller.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9010:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms1G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-controller.log"
     depends_on:
       - zookeeper
 
@@ -53,8 +80,9 @@ services:
     container_name: "pinot-broker"
     ports:
       - "8099:8099"
+      - "9011:9011"
     environment:
-      JAVA_OPTS: "-Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-broker.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9011:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-broker.log"
     depends_on:
       - pinot-controller
 
@@ -62,8 +90,10 @@ services:
     image: apachepinot/pinot:0.10.0
     command: "StartServer -zkAddress zookeeper:2181"
     restart: unless-stopped
-    container_name: "pinot-server" 
+    container_name: "pinot-server"
+    ports:
+      - "9012:9012"
     environment:
-      JAVA_OPTS: "-Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx16G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9012:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx16G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
     depends_on:
       - pinot-broker

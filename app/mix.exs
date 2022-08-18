@@ -14,6 +14,7 @@ defmodule App.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {App.Application, []},
       extra_applications: [:logger]
     ]
   end
@@ -22,7 +23,8 @@ defmodule App.MixProject do
   defp deps do
     [
       {:brod, "~> 3.16"},
-      {:jason, "~> 1.3"}
+      {:jason, "~> 1.3"},
+      {:faker, "~> 0.17.0"}
     ]
   end
 end

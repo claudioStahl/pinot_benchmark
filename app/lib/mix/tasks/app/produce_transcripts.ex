@@ -7,7 +7,6 @@ defmodule Mix.Tasks.App.ProduceTranscripts do
 
   @requirements ["app.start"]
 
-  @topic "transcripts"
   @total 100_000_000
   @parallel 20
 
@@ -30,17 +29,7 @@ defmodule Mix.Tasks.App.ProduceTranscripts do
   defp produce(task_id, current, total) do
     Logger.info("task #{task_id}: #{current}/#{total}")
 
-    message = %{
-      "studentID" => :rand.uniform(10_000),
-      "firstName" => "Natalie",
-      "lastName" => "Jones",
-      "gender" => Enum.random(["Female", "Male"]),
-      "subject" => Enum.random(["Maths", "History", "Chemistry", "Geography", "English", "Physics"]),
-      "score" =>  :rand.uniform(100) / 10,
-      "timestamp" => DateTime.to_unix(DateTime.utc_now(), :millisecond)
-    }
-
-    Producer.produce(@topic, message)
+    Producer.produce()
 
     produce(task_id, current - 1, total)
   end
