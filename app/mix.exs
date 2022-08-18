@@ -24,7 +24,8 @@ defmodule App.MixProject do
     [
       {:brod, "~> 3.16"},
       {:jason, "~> 1.3"},
-      {:faker, "~> 0.17.0"}
+      {:faker, "~> 0.17.0"},
+      {:finch, "~> 0.13.0"}
     ]
   end
 end

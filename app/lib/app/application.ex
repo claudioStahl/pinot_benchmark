@@ -7,7 +7,7 @@ defmodule App.Application do
 
   @impl true
   def start(_type, _args) do
-    children = producer_servers()
+    children = basic_children() ++ prod_children()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -15,7 +15,21 @@ defmodule App.Application do
     Supervisor.start_link(children, opts)
   end
 
-  def producer_servers do
+  defp basic_children do
+    [
+      {Finch, name: AppFinch}
+    ]
+  end
+
+  defp prod_children do
+    if Mix.env() == :prod do
+      producer_children()
+    else
+      []
+    end
+  end
+
+  defp producer_children do
     Enum.map(1..@parallel, &{ProducerServer, number: &1})
   end
 end
