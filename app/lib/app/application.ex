@@ -17,6 +17,7 @@ defmodule App.Application do
 
   defp basic_children do
     [
+      App.Telemetry,
       {Finch, name: AppFinch}
     ]
   end
