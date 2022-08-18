@@ -14,6 +14,7 @@ Prepare topic and table
 
 Up app
 ```
+asdf install
 cd app
 mix deps.get
 MIX_ENV=prod mix run --no-halt
