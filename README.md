@@ -1,4 +1,4 @@
-# Pinot
+A project to explore the performance of Apache Pinot.
 
 ## Lauch
 
