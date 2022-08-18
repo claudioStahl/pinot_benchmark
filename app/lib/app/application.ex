@@ -4,7 +4,8 @@ defmodule App.Application do
   alias App.ConsultServer
   alias App.ProducerServer
 
-  @parallel 20
+  @parallel_consult 20
+  @parallel_producer 10
 
   @impl true
   def start(_type, _args) do
@@ -32,10 +33,10 @@ defmodule App.Application do
   end
 
   defp consult_children do
-    Enum.map(1..@parallel, &{ConsultServer, number: &1})
+    Enum.map(1..@parallel_consult, &{ConsultServer, number: &1})
   end
 
   defp producer_children do
-    Enum.map(1..@parallel, &{ProducerServer, number: &1})
+    Enum.map(1..@parallel_producer, &{ProducerServer, number: &1})
   end
 end

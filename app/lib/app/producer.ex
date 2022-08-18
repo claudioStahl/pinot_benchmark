@@ -6,7 +6,7 @@ defmodule App.Producer do
 
   def produce do
     message = %{
-      "studentID" => :rand.uniform(10_000),
+      "studentID" => :rand.uniform(1_000),
       "firstName" => Person.first_name(),
       "lastName" => Person.last_name(),
       "gender" => Enum.random(["Female", "Male"]),

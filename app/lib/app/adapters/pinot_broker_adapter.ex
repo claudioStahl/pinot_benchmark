@@ -7,5 +7,10 @@ defmodule App.PinotBrokerAdapter do
     :post
     |> Finch.build("#{@base_url}/query/sql", [], body)
     |> Finch.request(AppFinch)
+    |> handle_response(sql)
+  end
+
+  defp handle_response({kind, response}, sql) do
+    {kind, {sql, response}}
   end
 end

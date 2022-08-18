@@ -32,7 +32,7 @@ defmodule App.ProducerServer do
   def handle_info(:produce, state) do
     Producer.produce()
 
-    send(self(), :produce)
+    Process.send_after(self(), :produce, 1)
 
     {:noreply, state}
   end

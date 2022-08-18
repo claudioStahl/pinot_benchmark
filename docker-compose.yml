@@ -19,6 +19,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:4.1.4
+    container_name: kafka
     depends_on:
       - zookeeper
     ports:
@@ -34,6 +35,7 @@ services:
 
   kowl:
     image: quay.io/cloudhut/kowl:master
+    container_name: kowl
     depends_on:
       - kafka
     ports:
@@ -43,6 +45,7 @@ services:
 
   prometheus:
     image: prom/prometheus
+    container_name: prometheus
     ports:
       - 9090:9090
     volumes:
@@ -55,6 +58,7 @@ services:
 
   grafana:
     image: grafana/grafana
+    container_name: grafana
     ports:
       - 3000:3000
     volumes:
@@ -64,7 +68,6 @@ services:
     image: apachepinot/pinot:0.10.0
     command: "StartController -zkAddress zookeeper:2181"
     container_name: "pinot-controller"
-    restart: unless-stopped
     ports:
       - "9000:9000"
       - "9010:9010"
@@ -76,7 +79,6 @@ services:
   pinot-broker:
     image: apachepinot/pinot:0.10.0
     command: "StartBroker -zkAddress zookeeper:2181"
-    restart: unless-stopped
     container_name: "pinot-broker"
     ports:
       - "8099:8099"
@@ -89,7 +91,6 @@ services:
   pinot-server:
     image: apachepinot/pinot:0.10.0
     command: "StartServer -zkAddress zookeeper:2181"
-    restart: unless-stopped
     container_name: "pinot-server"
     ports:
       - "9012:9012"
