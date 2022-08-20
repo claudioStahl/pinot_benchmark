@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1661013449010,
+  "iteration": 1661013449072,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -63,17 +63,18 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 9,
-        "w": 3,
+        "w": 6,
         "x": 0,
         "y": 1
       },
-      "id": 9,
+      "id": 18,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -95,11 +96,137 @@
             "type": "prometheus",
             "uid": "51yQXwiVk"
           },
-          "expr": "max(max_over_time(finch_conn_max_idle_time_exceeded_idle_time{}[$interval]))",
+          "expr": "sum by(table)(pinot_server_realtimeRowsConsumed_Count{})",
           "refId": "A"
         }
       ],
-      "title": "Max idle time exceeded",
+      "title": "Total rows",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "51yQXwiVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "51yQXwiVk"
+          },
+          "expr": "sum by (status) (rate(finch_request_stop_duration_sum{}[$interval])) / sum by (status) (rate(finch_request_stop_duration_count{}[$interval]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Query avg",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "51yQXwiVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "51yQXwiVk"
+          },
+          "expr": "sum by(table)(rate(pinot_server_realtimeRowsConsumed_Count{}[$interval]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Write rate",
       "type": "stat"
     },
     {
@@ -131,11 +258,11 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 3,
-        "x": 3,
+        "w": 6,
+        "x": 18,
         "y": 1
       },
-      "id": 18,
+      "id": 9,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -157,11 +284,11 @@
             "type": "prometheus",
             "uid": "51yQXwiVk"
           },
-          "expr": "sum by(table)(pinot_server_realtimeRowsConsumed_Count{})",
+          "expr": "max(max_over_time(finch_conn_max_idle_time_exceeded_idle_time{}[$interval]))",
           "refId": "A"
         }
       ],
-      "title": "Total rows",
+      "title": "Max idle time exceeded",
       "type": "stat"
     },
     {
@@ -1235,6 +1362,6 @@
   "timezone": "",
   "title": "App",
   "uid": "W-G9bXm4z",
-  "version": 19,
+  "version": 20,
   "weekStart": ""
 }
