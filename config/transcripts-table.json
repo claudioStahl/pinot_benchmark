@@ -52,7 +52,7 @@
       "stream.kafka.hlc.bootstrap.server": "kafka:29092",
       "stream.kafka.broker.list": "kafka:29092",
       "realtime.segment.flush.threshold.time": "300d",
-      "realtime.segment.flush.threshold.rows": "20000000",
+      "realtime.segment.flush.threshold.rows": "2000000",
       "stream.kafka.consumer.prop.auto.offset.reset": "smallest"
     },
     "starTreeIndexConfigs": [
