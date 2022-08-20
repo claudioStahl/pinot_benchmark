@@ -24,8 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1661013449072,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -43,7 +42,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "51yQXwiVk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -89,12 +88,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "51yQXwiVk"
+            "uid": "${datasource}"
           },
           "expr": "sum by(table)(pinot_server_realtimeRowsConsumed_Count{})",
           "refId": "A"
@@ -106,7 +105,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "51yQXwiVk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -152,12 +151,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "51yQXwiVk"
+            "uid": "${datasource}"
           },
           "expr": "sum by (status) (rate(finch_request_stop_duration_sum{}[$interval])) / sum by (status) (rate(finch_request_stop_duration_count{}[$interval]))",
           "refId": "A"
@@ -169,7 +168,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "51yQXwiVk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -215,12 +214,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "51yQXwiVk"
+            "uid": "${datasource}"
           },
           "expr": "sum by(table)(rate(pinot_server_realtimeRowsConsumed_Count{}[$interval]))",
           "refId": "A"
@@ -232,7 +231,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "51yQXwiVk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -277,12 +276,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.1.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "51yQXwiVk"
+            "uid": "${datasource}"
           },
           "expr": "max(max_over_time(finch_conn_max_idle_time_exceeded_idle_time{}[$interval]))",
           "refId": "A"
@@ -315,6 +314,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -376,7 +377,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -411,6 +413,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -472,7 +476,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -507,6 +512,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -568,7 +575,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -603,6 +611,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -664,7 +674,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -731,8 +742,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -760,7 +770,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -827,8 +838,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -856,7 +866,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -923,8 +934,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -952,7 +962,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1019,8 +1030,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1048,7 +1058,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1115,8 +1126,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1144,7 +1154,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1211,8 +1222,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1240,7 +1250,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1266,7 +1277,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 36,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1362,6 +1373,6 @@
   "timezone": "",
   "title": "App",
   "uid": "W-G9bXm4z",
-  "version": 20,
+  "version": 2,
   "weekStart": ""
 }
