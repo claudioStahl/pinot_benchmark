@@ -5,8 +5,10 @@ defmodule App.Producer do
   @topic "transcripts"
 
   def produce do
+    key = :rand.uniform(1_000)
+
     message = %{
-      "studentID" => :rand.uniform(1_000),
+      "studentID" => key,
       "firstName" => Person.first_name(),
       "lastName" => Person.last_name(),
       "gender" => Enum.random(["Female", "Male"]),
@@ -16,6 +18,6 @@ defmodule App.Producer do
       "timestamp" => DateTime.to_unix(DateTime.utc_now(), :millisecond)
     }
 
-    KafkaProducerAdapter.produce(@topic, message)
+    KafkaProducerAdapter.produce(@topic, key, message, :modulo)
   end
 end

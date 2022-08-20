@@ -1,6 +1,11 @@
 {
   "tableName": "transcript",
   "tableType": "REALTIME",
+  "routing": {
+    "segmentPrunerTypes": [
+      "partition"
+    ]
+  },
   "segmentsConfig": {
     "timeColumnName": "ts",
     "timeType": "MILLISECONDS",
@@ -28,6 +33,14 @@
   },
   "tableIndexConfig": {
     "loadMode": "MMAP",
+    "segmentPartitionConfig": {
+      "columnPartitionMap": {
+        "studentID": {
+          "functionName": "Modulo",
+          "numPartitions": 20
+        }
+      }
+    },
     "streamConfigs": {
       "streamType": "kafka",
       "stream.kafka.consumer.type": "lowLevel",
