@@ -1,6 +1,6 @@
 A project to explore the performance of Apache Pinot.
 
-## Lauch
+## Setup
 
 Up containers
 ```
@@ -9,15 +9,12 @@ docker compose up -d
 
 Prepare topic and table
 ```
-.prepare.sh
+./prepare.sh
 ```
 
-Up app
+Start app
 ```
-asdf install
-cd app
-mix deps.get
-MIX_ENV=prod mix run --no-halt
+./start_app.sh
 ```
 
 Open grafana and configure dashboards on http://localhost:3000.

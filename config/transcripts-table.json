@@ -38,8 +38,8 @@
       "stream.kafka.zk.broker.url": "zookeeper:2181/kafka",
       "stream.kafka.hlc.bootstrap.server": "kafka:29092",
       "stream.kafka.broker.list": "kafka:29092",
-      "realtime.segment.flush.threshold.time": "3600000",
-      "realtime.segment.flush.threshold.rows": "50000",
+      "realtime.segment.flush.threshold.time": "300d",
+      "realtime.segment.flush.threshold.rows": "20000000",
       "stream.kafka.consumer.prop.auto.offset.reset": "smallest"
     },
     "starTreeIndexConfigs": [

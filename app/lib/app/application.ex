@@ -4,8 +4,8 @@ defmodule App.Application do
   alias App.ConsultServer
   alias App.ProducerServer
 
-  @parallel_consult 20
-  @parallel_producer 20
+  @parallel_consult 10
+  @parallel_producer 10
 
   @impl true
   def start(_type, _args) do
