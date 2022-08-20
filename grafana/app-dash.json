@@ -25,10 +25,158 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1660937616832,
+  "iteration": 1661013449010,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 17,
+      "title": "Counts",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "51yQXwiVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "51yQXwiVk"
+          },
+          "expr": "max(max_over_time(finch_conn_max_idle_time_exceeded_idle_time{}[$interval]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Max idle time exceeded",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "51yQXwiVk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "51yQXwiVk"
+          },
+          "expr": "sum by(table)(pinot_server_realtimeRowsConsumed_Count{})",
+          "refId": "A"
+        }
+      ],
+      "title": "Total rows",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 15,
+      "panels": [],
+      "title": "Timelines",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -89,7 +237,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 11
       },
       "id": 10,
       "options": {
@@ -185,7 +333,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 11
       },
       "id": 11,
       "options": {
@@ -281,7 +429,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 18
       },
       "id": 12,
       "options": {
@@ -377,7 +525,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 18
       },
       "id": 13,
       "options": {
@@ -473,7 +621,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 25
       },
       "id": 2,
       "options": {
@@ -569,7 +717,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 25
       },
       "id": 3,
       "options": {
@@ -665,7 +813,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 14
+        "y": 25
       },
       "id": 4,
       "options": {
@@ -761,7 +909,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 21
+        "y": 32
       },
       "id": 5,
       "options": {
@@ -857,7 +1005,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 21
+        "y": 32
       },
       "id": 6,
       "options": {
@@ -953,7 +1101,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 21
+        "y": 32
       },
       "id": 7,
       "options": {
@@ -988,65 +1136,6 @@
       ],
       "title": "Queue 99p",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "51yQXwiVk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 3,
-        "x": 0,
-        "y": 28
-      },
-      "id": 9,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "51yQXwiVk"
-          },
-          "expr": "max(max_over_time(finch_conn_max_idle_time_exceeded_idle_time{}[$interval]))",
-          "refId": "A"
-        }
-      ],
-      "title": "Max idle time exceeded",
-      "type": "gauge"
     }
   ],
   "refresh": "5s",
@@ -1122,8 +1211,8 @@
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "Prometheus",
+          "value": "Prometheus"
         },
         "hide": 0,
         "includeAll": false,
@@ -1146,6 +1235,6 @@
   "timezone": "",
   "title": "App",
   "uid": "W-G9bXm4z",
-  "version": 17,
+  "version": 19,
   "weekStart": ""
 }
