@@ -42,7 +42,7 @@ executionFrameworkSpec:
 jobType: SegmentCreationAndTarPush
 
 # inputDirURI: Root directory of input data, expected to have scheme configured in PinotFS.
-inputDirURI: '/tmp/config_batch/rawdata'
+inputDirURI: '/tmp/data'
 
 # includeFileNamePattern: include file name pattern, supported glob pattern.
 # Sample usage:
@@ -57,7 +57,7 @@ includeFileNamePattern: 'glob:**/*.csv'
 # _excludeFileNamePattern: ''
 
 # outputDirURI: Root directory of output segments, expected to have scheme configured in PinotFS.
-outputDirURI: '/tmp/segments2'
+outputDirURI: '/tmp/output'
 
 # overwriteOutput: Overwrite output segments if existed.
 overwriteOutput: false

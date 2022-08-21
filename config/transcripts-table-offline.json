@@ -1,0 +1,63 @@
+{
+  "tableName": "transcript",
+  "tableType": "OFFLINE",
+  "routing": {
+    "segmentPrunerTypes": [
+      "partition"
+    ]
+  },
+  "segmentsConfig": {
+    "timeColumnName": "ts",
+    "timeType": "MILLISECONDS",
+    "segmentPushType": "APPEND",
+    "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
+    "schemaName": "transcript",
+    "replicasPerPartition": "1",
+    "replication": "1"
+  },
+  "tenants": {},
+  "ingestionConfig": {
+    "transformConfigs": [
+      {
+        "columnName": "ts",
+        "transformFunction": "\"timestamp\""
+      },
+      {
+        "columnName": "tsDay",
+        "transformFunction": "toEpochDays(\"timestamp\")"
+      },
+      {
+        "columnName": "tsSecond",
+        "transformFunction": "toEpochSeconds(\"timestamp\")"
+      }
+    ]
+  },
+  "tableIndexConfig": {
+    "loadMode": "MMAP",
+    "segmentPartitionConfig": {
+      "columnPartitionMap": {
+        "studentID": {
+          "functionName": "Modulo",
+          "numPartitions": 20
+        }
+      }
+    },
+    "starTreeIndexConfigs": [
+      {
+        "dimensionsSplitOrder": [
+          "studentID",
+          "tsSecond"
+        ],
+        "skipStarNodeCreationForDimensions": [],
+        "functionColumnPairs": [
+          "COUNT__*",
+          "SUM__score"
+        ],
+        "maxLeafRecords": 10000
+      }
+    ]
+  },
+  "metadata": {
+    "customConfigs": {}
+  }
+}
