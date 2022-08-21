@@ -83,7 +83,7 @@ services:
         ipv4_address: 10.5.0.3
 
   pinot-controller:
-    image: apachepinot/pinot:0.10.0
+    image: apachepinot/pinot:latest
     command: "StartController -zkAddress zookeeper:2181"
     container_name: "pinot-controller"
     restart: unless-stopped
@@ -109,7 +109,7 @@ services:
         ipv4_address: 10.5.0.4
 
   pinot-broker:
-    image: apachepinot/pinot:0.10.0
+    image: apachepinot/pinot:latest
     command: "StartBroker -zkAddress zookeeper:2181"
     container_name: "pinot-broker"
     restart: unless-stopped
@@ -135,7 +135,7 @@ services:
         ipv4_address: 10.5.0.5
 
   pinot-server:
-    image: apachepinot/pinot:0.10.0
+    image: apachepinot/pinot:latest
     command: "StartServer -zkAddress zookeeper:2181"
     container_name: "pinot-server"
     restart: unless-stopped
