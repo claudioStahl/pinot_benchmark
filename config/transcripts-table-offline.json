@@ -1,11 +1,7 @@
 {
   "tableName": "transcript",
   "tableType": "OFFLINE",
-  "routing": {
-    "segmentPrunerTypes": [
-      "partition"
-    ]
-  },
+  "routing": {},
   "segmentsConfig": {
     "timeColumnName": "ts",
     "timeType": "MILLISECONDS",
@@ -17,6 +13,10 @@
   },
   "tenants": {},
   "ingestionConfig": {
+    "batchIngestionConfig": {
+      "segmentIngestionType": "APPEND",
+      "segmentIngestionFrequency": "DAILY"
+    },
     "transformConfigs": [
       {
         "columnName": "ts",
@@ -34,14 +34,6 @@
   },
   "tableIndexConfig": {
     "loadMode": "MMAP",
-    "segmentPartitionConfig": {
-      "columnPartitionMap": {
-        "studentID": {
-          "functionName": "Modulo",
-          "numPartitions": 20
-        }
-      }
-    },
     "starTreeIndexConfigs": [
       {
         "dimensionsSplitOrder": [
