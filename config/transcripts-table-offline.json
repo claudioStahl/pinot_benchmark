@@ -3,8 +3,8 @@
   "tableType": "OFFLINE",
   "routing": {},
   "segmentsConfig": {
-    "timeColumnName": "ts",
-    "timeType": "MILLISECONDS",
+    "timeColumnName": "tsDay",
+    "timeType": "DAYS",
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
     "schemaName": "transcript",

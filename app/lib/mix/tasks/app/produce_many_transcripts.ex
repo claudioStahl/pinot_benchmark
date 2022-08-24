@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.App.ProduceTranscripts do
+defmodule Mix.Tasks.App.ProduceManyTranscripts do
   use Mix.Task
 
   alias App.Producer

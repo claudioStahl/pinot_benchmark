@@ -37,15 +37,15 @@
     },
     {
       "name": "tsDay",
-      "dataType": "LONG",
+      "dataType": "INT",
       "format": "1:DAYS:EPOCH",
-      "granularity": "1:MILLISECONDS"
+      "granularity": "1:DAYS"
     },
     {
       "name": "tsSecond",
       "dataType": "LONG",
       "format": "1:SECONDS:EPOCH",
-      "granularity": "1:MILLISECONDS"
+      "granularity": "1:SECONDS"
     }
   ]
 }

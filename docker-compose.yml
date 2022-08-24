@@ -17,6 +17,8 @@ volumes:
     driver: local
   server_data:
     driver: local
+  minion_data:
+    driver: local
 
 networks:
   vpcbr:
@@ -83,16 +85,18 @@ services:
         ipv4_address: 10.5.0.3
 
   pinot-controller:
-    image: apachepinot/pinot:latest
-    command: "StartController -zkAddress zookeeper:2181"
+    image: apachepinot/pinot:0.10.0
+    command: "StartController -zkAddress zookeeper:2181 -configFileName /config/controller-conf.conf"
     container_name: "pinot-controller"
     restart: unless-stopped
     ports:
       - "9000:9000"
       - "9010:9010"
     volumes:
-      - controller_data:/opt/pinot/data
+      - ./config:/config
+      - controller_data:/tmp/data
     environment:
+      CONFIG_VERSION: "10"
       JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9010:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms1G -Xmx2G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-controller.log"
     depends_on:
       - zookeeper
@@ -109,7 +113,7 @@ services:
         ipv4_address: 10.5.0.4
 
   pinot-broker:
-    image: apachepinot/pinot:latest
+    image: apachepinot/pinot:0.10.0
     command: "StartBroker -zkAddress zookeeper:2181"
     container_name: "pinot-broker"
     restart: unless-stopped
@@ -117,7 +121,7 @@ services:
       - "8099:8099"
       - "9011:9011"
     volumes:
-      - broker_data:/opt/pinot/data
+      - broker_data:/tmp/data
     environment:
       JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9011:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms1G -Xmx2G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-broker.log"
     depends_on:
@@ -135,14 +139,14 @@ services:
         ipv4_address: 10.5.0.5
 
   pinot-server:
-    image: apachepinot/pinot:latest
+    image: apachepinot/pinot:0.10.0
     command: "StartServer -zkAddress zookeeper:2181"
     container_name: "pinot-server"
     restart: unless-stopped
     ports:
       - "9012:9012"
     volumes:
-      - server_data:/opt/pinot/data
+      - server_data:/tmp/data
     environment:
       JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9012:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms2G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
     depends_on:
@@ -158,6 +162,31 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.6
+
+  pinot-minion:
+    image: apachepinot/pinot:0.10.0
+    command: "StartMinion -zkAddress zookeeper:2181"
+    container_name: "pinot-minion"
+    restart: unless-stopped
+    ports:
+      - "9013:9013"
+    volumes:
+      - minion_data:/tmp/data
+    environment:
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9013:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms2G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
+    depends_on:
+      - pinot-server
+    deploy:
+      resources:
+        limits:
+          cpus: "3"
+          memory: "4G"
+        reservations:
+          cpus: "2"
+          memory: "3G"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.10
 
   kowl:
     image: quay.io/cloudhut/kowl:master

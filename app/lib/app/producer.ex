@@ -4,7 +4,11 @@ defmodule App.Producer do
 
   @topic "transcripts"
 
-  def produce do
+  def produce(timestamp \\ :now)
+  def produce(:now), do: do_produce(DateTime.utc_now())
+  def produce(timestamp), do: do_produce(timestamp)
+
+  defp do_produce(timestamp) do
     key = :rand.uniform(1_000)
 
     message = %{
@@ -15,7 +19,7 @@ defmodule App.Producer do
       "subject" =>
         Enum.random(["Maths", "History", "Chemistry", "Geography", "English", "Physics"]),
       "score" => :rand.uniform(100) / 10,
-      "timestamp" => DateTime.to_unix(DateTime.utc_now(), :millisecond)
+      "timestamp" => DateTime.to_unix(timestamp, :millisecond)
     }
 
     KafkaProducerAdapter.produce(@topic, key, message, :modulo)

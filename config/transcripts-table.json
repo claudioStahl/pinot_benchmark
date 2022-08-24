@@ -7,8 +7,8 @@
     ]
   },
   "segmentsConfig": {
-    "timeColumnName": "ts",
-    "timeType": "MILLISECONDS",
+    "timeColumnName": "tsDay",
+    "timeType": "DAYS",
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
     "schemaName": "transcript",
@@ -51,8 +51,8 @@
       "stream.kafka.zk.broker.url": "zookeeper:2181/kafka",
       "stream.kafka.hlc.bootstrap.server": "kafka:29092",
       "stream.kafka.broker.list": "kafka:29092",
-      "realtime.segment.flush.threshold.time": "300d",
-      "realtime.segment.flush.threshold.rows": "2000000",
+      "realtime.segment.flush.threshold.time": "1d",
+      "realtime.segment.flush.threshold.rows": "2",
       "stream.kafka.consumer.prop.auto.offset.reset": "smallest"
     },
     "starTreeIndexConfigs": [
@@ -72,5 +72,15 @@
   },
   "metadata": {
     "customConfigs": {}
+  },
+  "task": {
+    "taskTypeConfigsMap": {
+      "RealtimeToOfflineSegmentsTask": {
+        "bucketTimePeriod": "1h",
+        "bufferTimePeriod": "1d",
+        "mergeType": "concat",
+        "maxNumRecordsPerSegment": "100000"
+      }
+    }
   }
 }
