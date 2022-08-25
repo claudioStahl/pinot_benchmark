@@ -1,16 +1,12 @@
-defmodule Mix.Tasks.App.ProduceManyTranscripts do
-  use Mix.Task
-
+defmodule App.ProduceManyTranscriptsTask do
   alias App.Producer
 
   require Logger
 
-  @requirements ["app.start"]
-
   @total 100_000_000
   @parallel 20
 
-  def run(_args) do
+  def run do
     Logger.info("#{__MODULE__}.run")
 
     total = trunc(@total / @parallel)
