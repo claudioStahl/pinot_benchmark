@@ -76,7 +76,7 @@
   "task": {
     "taskTypeConfigsMap": {
       "RealtimeToOfflineSegmentsTask": {
-        "bucketTimePeriod": "1h",
+        "bucketTimePeriod": "1d",
         "bufferTimePeriod": "1d",
         "mergeType": "concat",
         "maxNumRecordsPerSegment": "100000"
