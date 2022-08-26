@@ -9,7 +9,7 @@ defmodule App.Application do
 
   @impl true
   def start(_type, _args) do
-    children = basic_children() ++ prod_children()
+    children = basic_children() ++ telemetry_children() ++ prod_children()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -18,10 +18,15 @@ defmodule App.Application do
   end
 
   defp basic_children do
-    [
-      App.Telemetry,
-      {Finch, name: AppFinch}
-    ]
+    [{Finch, name: AppFinch}]
+  end
+
+  defp telemetry_children do
+    if Mix.env() == :prod do
+      [App.Telemetry]
+    else
+      []
+    end
   end
 
   defp prod_children do

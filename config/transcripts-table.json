@@ -7,8 +7,8 @@
     ]
   },
   "segmentsConfig": {
-    "timeColumnName": "tsDay",
-    "timeType": "DAYS",
+    "timeColumnName": "tsHour",
+    "timeType": "HOURS",
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
     "schemaName": "transcript",
@@ -24,6 +24,14 @@
       {
         "columnName": "tsDay",
         "transformFunction": "toEpochDays(\"timestamp\")"
+      },
+      {
+        "columnName": "tsHour",
+        "transformFunction": "toEpochHours(\"timestamp\")"
+      },
+      {
+        "columnName": "tsMinute",
+        "transformFunction": "toEpochMinutes(\"timestamp\")"
       },
       {
         "columnName": "tsSecond",
@@ -59,7 +67,7 @@
       {
         "dimensionsSplitOrder": [
           "studentID",
-          "tsSecond"
+          "tsMinute"
         ],
         "skipStarNodeCreationForDimensions": [],
         "functionColumnPairs": [
@@ -76,8 +84,8 @@
   "task": {
     "taskTypeConfigsMap": {
       "RealtimeToOfflineSegmentsTask": {
-        "bucketTimePeriod": "1d",
-        "bufferTimePeriod": "1d",
+        "bucketTimePeriod": "10m",
+        "bufferTimePeriod": "1h",
         "mergeType": "concat",
         "maxNumRecordsPerSegment": "100000"
       }

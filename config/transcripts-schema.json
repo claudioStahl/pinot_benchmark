@@ -42,6 +42,18 @@
       "granularity": "1:DAYS"
     },
     {
+      "name": "tsHour",
+      "dataType": "INT",
+      "format": "1:HOURS:EPOCH",
+      "granularity": "1:HOURS"
+    },
+    {
+      "name": "tsMinute",
+      "dataType": "INT",
+      "format": "1:MINUTES:EPOCH",
+      "granularity": "1:MINUTES"
+    },
+    {
       "name": "tsSecond",
       "dataType": "LONG",
       "format": "1:SECONDS:EPOCH",

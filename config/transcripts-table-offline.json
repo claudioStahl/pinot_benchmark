@@ -3,8 +3,8 @@
   "tableType": "OFFLINE",
   "routing": {},
   "segmentsConfig": {
-    "timeColumnName": "tsDay",
-    "timeType": "DAYS",
+    "timeColumnName": "tsHour",
+    "timeType": "HOURS",
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
     "schemaName": "transcript",
@@ -27,6 +27,14 @@
         "transformFunction": "toEpochDays(\"timestamp\")"
       },
       {
+        "columnName": "tsHour",
+        "transformFunction": "toEpochHours(\"timestamp\")"
+      },
+      {
+        "columnName": "tsMinute",
+        "transformFunction": "toEpochMinutes(\"timestamp\")"
+      },
+      {
         "columnName": "tsSecond",
         "transformFunction": "toEpochSeconds(\"timestamp\")"
       }
@@ -38,7 +46,7 @@
       {
         "dimensionsSplitOrder": [
           "studentID",
-          "tsSecond"
+          "tsMinute"
         ],
         "skipStarNodeCreationForDimensions": [],
         "functionColumnPairs": [
