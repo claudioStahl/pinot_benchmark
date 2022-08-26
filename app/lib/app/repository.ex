@@ -45,10 +45,19 @@ defmodule App.Repository do
 
     """
     select #{select} from transcript
-    where tsMinute >= toEpochMinutes(fromDateTime('#{from_str}', 'yyyy-MM-dd HH:mm:ss'))
+    where tsHour >= toEpochHours(fromDateTime('#{from_str}', 'yyyy-MM-dd HH:mm:ss'))
+    and tsHour <= toEpochHours(fromDateTime('#{to_str}', 'yyyy-MM-dd HH:mm:ss'))
+    and tsMinute >= toEpochMinutes(fromDateTime('#{from_str}', 'yyyy-MM-dd HH:mm:ss'))
     and tsMinute <= toEpochMinutes(fromDateTime('#{to_str}', 'yyyy-MM-dd HH:mm:ss'))
     and studentID = #{student_id}
     """
+
+    # """
+    # select #{select} from transcript
+    # where tsMinute >= toEpochMinutes(fromDateTime('#{from_str}', 'yyyy-MM-dd HH:mm:ss'))
+    # and tsMinute <= toEpochMinutes(fromDateTime('#{to_str}', 'yyyy-MM-dd HH:mm:ss'))
+    # and studentID = #{student_id}
+    # """
   end
 
   defp build_student_id, do: :rand.uniform(1_000)

@@ -23,6 +23,8 @@ defmodule App.PinotBrokerAdapter do
   end
 
   defp handle_response({kind, response}, sql) do
+    Logger.error("Query error. kind=#{inspect(kind)}, response=#{inspect(response)}, sql=#{inspect(sql)}")
+
     {kind, {sql, response}}
   end
 end

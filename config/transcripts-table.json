@@ -12,7 +12,9 @@
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
     "schemaName": "transcript",
-    "replicasPerPartition": "1"
+    "replicasPerPartition": "1",
+    "retentionTimeUnit": "HOURS",
+    "retentionTimeValue": 2
   },
   "tenants": {},
   "ingestionConfig": {
@@ -59,7 +61,7 @@
       "stream.kafka.zk.broker.url": "zookeeper:2181/kafka",
       "stream.kafka.hlc.bootstrap.server": "kafka:29092",
       "stream.kafka.broker.list": "kafka:29092",
-      "realtime.segment.flush.threshold.time": "2h",
+      "realtime.segment.flush.threshold.time": "10m",
       "realtime.segment.flush.threshold.rows": "1000000",
       "stream.kafka.consumer.prop.auto.offset.reset": "smallest"
     },

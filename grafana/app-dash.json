@@ -590,7 +590,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum by(table)(increase(finch_request_stop_duration_count{}[$interval]))",
+          "expr": "sum by(status)(increase(finch_request_stop_duration_count{}[$interval]))",
           "interval": "",
           "legendFormat": "{{status}}",
           "range": true,
@@ -689,7 +689,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum by(table)(rate(finch_request_stop_duration_count{}[$interval]))",
+          "expr": "sum by(status)(rate(finch_request_stop_duration_count{}[$interval]))",
           "interval": "",
           "legendFormat": "{{status}}",
           "range": true,
@@ -710,6 +710,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -742,7 +744,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -806,6 +809,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -838,7 +843,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -902,6 +908,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -934,7 +942,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -998,6 +1007,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1030,7 +1041,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1073,9 +1085,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum by (status) (rate(finch_queue_stop_duration_sum{}[$interval])) / sum by (status) (rate(finch_queue_stop_duration_count{}[$interval]))",
+          "expr": "sum(rate(finch_queue_stop_duration_sum{}[$interval])) / sum(rate(finch_queue_stop_duration_count{}[$interval]))",
           "interval": "",
-          "legendFormat": "{{status}}",
+          "legendFormat": "queue",
           "range": true,
           "refId": "A"
         }
@@ -1094,6 +1106,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1126,7 +1140,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1169,9 +1184,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.5,sum(rate(finch_queue_stop_duration_bucket{}[$interval]))by(status,le))",
+          "expr": "histogram_quantile(0.5,sum(rate(finch_queue_stop_duration_bucket{}[$interval]))by(le))",
           "interval": "",
-          "legendFormat": "{{status}}",
+          "legendFormat": "queue",
           "range": true,
           "refId": "A"
         }
@@ -1190,6 +1205,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1222,7 +1239,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1265,9 +1283,9 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.99,sum(rate(finch_queue_stop_duration_bucket{}[$interval]))by(status,le))",
+          "expr": "histogram_quantile(0.99,sum(rate(finch_queue_stop_duration_bucket{}[$interval]))by(le))",
           "interval": "",
-          "legendFormat": "{{status}}",
+          "legendFormat": "queue",
           "range": true,
           "refId": "A"
         }
