@@ -14,7 +14,7 @@
     "schemaName": "transcript",
     "replicasPerPartition": "1",
     "retentionTimeUnit": "HOURS",
-    "retentionTimeValue": 2
+    "retentionTimeValue": 4
   },
   "tenants": {},
   "ingestionConfig": {
