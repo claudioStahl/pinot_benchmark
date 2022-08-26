@@ -37,7 +37,7 @@
       "columnPartitionMap": {
         "studentID": {
           "functionName": "Modulo",
-          "numPartitions": 20
+          "numPartitions": 10
         }
       }
     },
