@@ -31,7 +31,7 @@ defmodule App.ProducerServer do
 
   def handle_info(:produce, state) do
     case Producer.produce() do
-      {:ok, _} ->
+      :ok ->
         Process.send_after(self(), :produce, 1)
 
       {:error, _} ->
