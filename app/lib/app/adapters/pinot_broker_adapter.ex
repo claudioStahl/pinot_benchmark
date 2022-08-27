@@ -16,15 +16,26 @@ defmodule App.PinotBrokerAdapter do
   end
 
   defp handle_response({:ok, %Response{status: 200, body: body}}, sql) do
-    %{"resultTable" => %{"rows" => [[value]]}} = data = Jason.decode!(body)
+    handle_body(Jason.decode!(body), sql)
+  end
+
+  defp handle_response({kind, response}, sql) do
+    Logger.error(
+      "Query error. kind=#{inspect(kind)}, response=#{inspect(response)}, sql=#{inspect(sql)}"
+    )
+
+    {kind, {sql, response}}
+  end
+
+  defp handle_body(%{"resultTable" => %{"rows" => [[value]]}} = data, sql) do
     if(value == 0, do: Logger.warning("Query return zero. sql=#{sql}"))
 
     {:ok, {sql, data}}
   end
 
-  defp handle_response({kind, response}, sql) do
-    Logger.error("Query error. kind=#{inspect(kind)}, response=#{inspect(response)}, sql=#{inspect(sql)}")
+  defp handle_body(data, sql) do
+    Logger.error("Query error. data=#{inspect(data)}, sql=#{inspect(sql)}")
 
-    {kind, {sql, response}}
+    {:error, {sql, data}}
   end
 end

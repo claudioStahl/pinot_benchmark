@@ -30,9 +30,13 @@ defmodule App.ConsultServer do
   end
 
   def handle_info(:consult, state) do
-    Repository.sum_transcript()
+    case Repository.sum_transcript() do
+      {:ok, _} ->
+        send(self(), :consult)
 
-    send(self(), :consult)
+      {:error, _} ->
+        Process.send_after(self(), :consult, 5_000)
+    end
 
     {:noreply, state}
   end

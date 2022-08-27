@@ -2,19 +2,10 @@ defmodule App.KafkaProducerAdapter do
   require Logger
 
   def produce(topic, key, message, partitioner \\ :phash2) do
-    {:ok, count} = :brod.get_partitions_count(:default, topic)
-    partition = parse_partition(partitioner, key, count)
-
-    :default
-    |> :brod.produce(
-      topic,
-      partition,
-      to_string(key),
-      Jason.encode!(message)
-    )
-    |> case do
-      {:ok, _} ->
-        :ok
+    case :brod.get_partitions_count(:default, topic) do
+      {:ok, count} ->
+        partition = parse_partition(partitioner, key, count)
+        do_produce(topic, message, partition, to_string(key))
 
       {:error, reason} ->
         Logger.error("#{__MODULE__}.produce error=#{inspect(reason)}")
@@ -23,11 +14,15 @@ defmodule App.KafkaProducerAdapter do
   end
 
   def produce(topic, message) do
+    do_produce(topic, message, :random, :undefined)
+  end
+
+  defp do_produce(topic, message, partition, key) do
     :default
     |> :brod.produce(
       topic,
-      :random,
-      :undefined,
+      partition,
+      key,
       Jason.encode!(message)
     )
     |> case do
@@ -35,7 +30,7 @@ defmodule App.KafkaProducerAdapter do
         :ok
 
       {:error, reason} ->
-        Logger.error("#{__MODULE__}.produce error=#{inspect(reason)}")
+        Logger.error("#{__MODULE__}.do_produce error=#{inspect(reason)}")
         {:error, :produce_event_failed}
     end
   end
