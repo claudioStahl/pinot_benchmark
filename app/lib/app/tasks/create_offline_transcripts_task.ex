@@ -3,7 +3,7 @@ defmodule App.CreateOfflineTranscriptsTask do
 
   @data_path "/tmp/data"
   @start_date ~U[2022-01-01 00:00:00.000000Z]
-  @finish_date ~U[2022-02-01 00:00:00.000000Z]
+  @finish_date ~U[2022-01-02 00:00:00.000000Z]
   @interval 1
 
   def run do

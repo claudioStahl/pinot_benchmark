@@ -73,7 +73,7 @@ defmodule App.Repository do
 
   defp build_dates do
     now = NaiveDateTime.utc_now()
-    from = NaiveDateTime.add(now, -600, :second)
+    from = NaiveDateTime.add(now, -60, :second)
     to = now
     from_str = from |> NaiveDateTime.truncate(:second) |> NaiveDateTime.to_string()
     to_str = to |> NaiveDateTime.truncate(:second) |> NaiveDateTime.to_string()

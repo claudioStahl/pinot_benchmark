@@ -80,15 +80,5 @@
   },
   "metadata": {
     "customConfigs": {}
-  },
-  "task": {
-    "taskTypeConfigsMap": {
-      "RealtimeToOfflineSegmentsTask": {
-        "bucketTimePeriod": "10m",
-        "bufferTimePeriod": "1h",
-        "mergeType": "concat",
-        "maxNumRecordsPerSegment": "100000"
-      }
-    }
   }
 }
