@@ -4,9 +4,6 @@ defmodule App.Application do
   alias App.ConsultServer
   alias App.ProducerServer
 
-  @parallel_consult 10
-  @parallel_producer 10
-
   @impl true
   def start(_type, _args) do
     children = basic_children() ++ telemetry_children() ++ prod_children()
@@ -38,18 +35,21 @@ defmodule App.Application do
   end
 
   defp consult_children do
-    if @parallel_consult > 0 do
-      Enum.map(1..@parallel_consult, &{ConsultServer, number: &1})
+    if parallel_consult() > 0 do
+      Enum.map(1..parallel_consult(), &{ConsultServer, number: &1})
     else
       []
     end
   end
 
   defp producer_children do
-    if @parallel_producer > 0 do
-      Enum.map(1..@parallel_producer, &{ProducerServer, number: &1})
+    if parallel_producer() > 0 do
+      Enum.map(1..parallel_producer(), &{ProducerServer, number: &1})
     else
       []
     end
   end
+
+  defp parallel_consult, do: Application.fetch_env!(:app, :parallel_consult)
+  defp parallel_producer, do: Application.fetch_env!(:app, :parallel_producer)
 end

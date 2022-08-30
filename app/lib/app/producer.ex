@@ -4,10 +4,10 @@ defmodule App.Producer do
 
   @topic "transcripts"
 
-  def produce(timestamp \\ :now) do
+  def produce(timestamp \\ :now, sync \\ false) do
     message = TranscriptBuilder.build(timestamp)
     key = Map.fetch!(message, "studentID")
 
-    KafkaProducerAdapter.produce(@topic, key, message, :modulo)
+    KafkaProducerAdapter.produce_with_key(@topic, key, message, :modulo, sync)
   end
 end
