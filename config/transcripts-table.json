@@ -46,7 +46,7 @@
       "columnPartitionMap": {
         "studentID": {
           "functionName": "Modulo",
-          "numPartitions": 10
+          "numPartitions": 20
         }
       }
     },
@@ -60,7 +60,7 @@
       "stream.kafka.zk.broker.url": "zookeeper:2181/kafka",
       "stream.kafka.hlc.bootstrap.server": "kafka:29092",
       "stream.kafka.broker.list": "kafka:29092",
-      "realtime.segment.flush.threshold.time": "10m",
+      "realtime.segment.flush.threshold.time": "30m",
       "realtime.segment.flush.threshold.rows": "1000000",
       "stream.kafka.consumer.prop.auto.offset.reset": "smallest"
     },

@@ -5,6 +5,17 @@ defmodule App.ConsultServer do
 
   alias App.Repository
 
+  def build_children do
+    enable_consult_server = Application.fetch_env!(:app, :enable_consult_server)
+    parallel_consult = Application.fetch_env!(:app, :parallel_consult)
+
+    if enable_consult_server && parallel_consult > 0 do
+      Enum.map(1..parallel_consult, &{__MODULE__, number: &1})
+    else
+      []
+    end
+  end
+
   def child_spec(options) do
     %{
       id: {__MODULE__, options[:number]},

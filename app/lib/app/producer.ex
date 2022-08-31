@@ -2,7 +2,7 @@ defmodule App.Producer do
   alias App.KafkaProducerAdapter
   alias App.TranscriptBuilder
 
-  @topic "transcripts"
+  @topic Application.fetch_env!(:app, :topic)
 
   def produce(timestamp \\ :now, sync \\ false) do
     message = TranscriptBuilder.build(timestamp)

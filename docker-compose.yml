@@ -201,6 +201,8 @@ services:
       CLASSPATH_PREFIX: "/config/hadoop/hadoop-hdfs-2.7.1.jar:/config/hadoop/hadoop-annotations-2.7.1.jar:/config/hadoop/hadoop-auth-2.7.1.jar:/config/hadoop/hadoop-common-2.7.1.jar:/config/hadoop/guava-11.0.2.jar:/config/hadoop/gson-2.2.4.jar"
     depends_on:
       - zookeeper
+      - namenode
+      - datanode
     deploy:
       resources:
         limits:

@@ -1,6 +1,11 @@
 defmodule App.KafkaProducerAdapter do
   require Logger
 
+  def resolve_offset(topic, partition) do
+    host = Application.get_env(:brod, :clients)[:default][:endpoints]
+    :brod.resolve_offset(hosts, topic, partition)
+  end
+
   def produce_with_key(topic, key, message, partitioner \\ :phash2, sync \\ false) do
     case :brod.get_partitions_count(:default, topic) do
       {:ok, count} ->

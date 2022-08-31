@@ -5,6 +5,17 @@ defmodule App.ProducerServer do
 
   alias App.Producer
 
+  def build_children do
+    enable_producer_server = Application.fetch_env!(:app, :enable_producer_server)
+    parallel_producer = Application.fetch_env!(:app, :parallel_producer)
+
+    if enable_producer_server && parallel_producer > 0 do
+      Enum.map(1..parallel_producer, &{__MODULE__, number: &1})
+    else
+      []
+    end
+  end
+
   def child_spec(options) do
     %{
       id: {__MODULE__, options[:number]},
