@@ -12,7 +12,8 @@
     "segmentPushType": "APPEND",
     "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
     "schemaName": "transcript",
-    "replicasPerPartition": "1"
+    "replicasPerPartition": "1",
+    "peerSegmentDownloadScheme": "http"
   },
   "tenants": {},
   "ingestionConfig": {
