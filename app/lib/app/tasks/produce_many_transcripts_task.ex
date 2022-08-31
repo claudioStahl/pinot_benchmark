@@ -3,8 +3,7 @@ defmodule App.ProduceManyTranscriptsTask do
 
   require Logger
 
-  # @total 500_000_000
-  @total 1_000
+  @total 500_000_000
   @parallel 20
   @start_date ~U[2022-01-01 00:00:00.000000Z]
   @interval 1
