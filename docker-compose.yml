@@ -1,8 +1,6 @@
 version: '3.7'
 
 volumes:
-  hadoop_namenode:
-  hadoop_datanode:
   prometheus_data:
   grafana_data:
   zookeeper_data:
@@ -22,51 +20,6 @@ networks:
           gateway: 10.5.0.1
 
 services:
-  namenode:
-    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
-    container_name: namenode
-    restart: unless-stopped
-    ports:
-      - 9870:9870
-      - 9800:9000
-    volumes:
-      - hadoop_namenode:/hadoop/dfs/name
-    environment:
-      - CLUSTER_NAME=test
-    env_file:
-      - ./hadoop.env
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: "2G"
-        reservations:
-          cpus: "0.5"
-          memory: "1G"      
-    networks:
-      vpcbr:          
-
-  datanode:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
-    container_name: datanode
-    restart: unless-stopped
-    volumes:
-      - hadoop_datanode:/hadoop/dfs/data
-    environment:
-      SERVICE_PRECONDITION: "namenode:9870"
-    env_file:
-      - ./hadoop.env
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: "2G"
-        reservations:
-          cpus: "0.5"
-          memory: "1G"      
-    networks:
-      vpcbr:          
-
   zookeeper:
     image: zookeeper:3.5.6
     hostname: zookeeper
@@ -112,11 +65,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "4"
+          cpus: "3"
           memory: "8G"
         reservations:
           cpus: "2"
-          memory: "6G"
+          memory: "4G"
     networks:
       vpcbr:          
 
@@ -197,20 +150,19 @@ services:
       - controller_data:/tmp/data
     environment:
       CONFIG_VERSION: "7"
-      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9010:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Dplugins.include=pinot-hdfs -Xms1G -Xmx2G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-controller.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9010:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Dplugins.include=pinot-hdfs -Xms4G -Xmx8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-controller.log"
       CLASSPATH_PREFIX: "/config/hadoop/hadoop-hdfs-2.7.1.jar:/config/hadoop/hadoop-annotations-2.7.1.jar:/config/hadoop/hadoop-auth-2.7.1.jar:/config/hadoop/hadoop-common-2.7.1.jar:/config/hadoop/guava-11.0.2.jar:/config/hadoop/gson-2.2.4.jar"
     depends_on:
       - zookeeper
       - namenode
-      - datanode
     deploy:
       resources:
         limits:
+          cpus: "3"
+          memory: "8G"
+        reservations:
           cpus: "2"
           memory: "4G"
-        reservations:
-          cpus: "1"
-          memory: "2G"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.20
@@ -226,17 +178,17 @@ services:
     volumes:
       - broker_data:/tmp/data
     environment:
-      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9011:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms1G -Xmx2G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-broker.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9011:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-broker.log"
     depends_on:
       - pinot-controller
     deploy:
       resources:
         limits:
-          cpus: "2"
-          memory: "2G"
+          cpus: "3"
+          memory: "8G"
         reservations:
-          cpus: "1"
-          memory: "1G"
+          cpus: "2"
+          memory: "4G"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.21
@@ -253,10 +205,10 @@ services:
       - server_data:/tmp/data
     environment:
       VERSION_CONFIG: "4"
-      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9012:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Dplugins.include=pinot-hdfs -Xms2G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9012:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Dplugins.include=pinot-hdfs -Xms4G -Xmx8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
       CLASSPATH_PREFIX: "/config/hadoop/hadoop-hdfs-2.7.1.jar:/config/hadoop/hadoop-annotations-2.7.1.jar:/config/hadoop/hadoop-auth-2.7.1.jar:/config/hadoop/hadoop-common-2.7.1.jar:/config/hadoop/guava-11.0.2.jar:/config/hadoop/gson-2.2.4.jar"
     depends_on:
-      - pinot-broker
+      - pinot-controller
     deploy:
       resources:
         limits:
@@ -264,7 +216,7 @@ services:
           memory: "8G"
         reservations:
           cpus: "2"
-          memory: "6G"
+          memory: "4G"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.22
@@ -281,18 +233,18 @@ services:
       - minion_data:/tmp/data
     environment:
       VERSION_CONFIG: "4"
-      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9013:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms2G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
+      JAVA_OPTS: "-javaagent:/opt/pinot/etc/jmx_prometheus_javaagent/jmx_prometheus_javaagent.jar=9013:/opt/pinot/etc/jmx_prometheus_javaagent/configs/pinot.yml -Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
       CLASSPATH_PREFIX: "/config/hadoop/hadoop-hdfs-2.7.1.jar:/config/hadoop/hadoop-annotations-2.7.1.jar:/config/hadoop/hadoop-auth-2.7.1.jar:/config/hadoop/hadoop-common-2.7.1.jar:/config/hadoop/guava-11.0.2.jar:/config/hadoop/gson-2.2.4.jar"      
     depends_on:
-      - pinot-server
+      - pinot-controller
     deploy:
       resources:
         limits:
+          cpus: "3"
+          memory: "8G"
+        reservations:
           cpus: "2"
           memory: "4G"
-        reservations:
-          cpus: "1"
-          memory: "3G"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.23
